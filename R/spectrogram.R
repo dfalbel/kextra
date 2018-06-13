@@ -45,6 +45,8 @@
 #' input <- layer_input(shape = c(16000, 1))
 #' output <- layer_spectrogram(input, 100, 10)
 #'
+#' @family audio
+#'
 #' @export
 layer_spectrogram <- function(object, frame_length, frame_step, fft_length = NULL,
                               pad_end = FALSE, mode = "power", log_compress = FALSE,
@@ -189,6 +191,8 @@ Spectrogram <- R6::R6Class(
 #' library(kextra)
 #' input <- layer_input(shape = c(16000, 1))
 #' output <- layer_spectrogram(input, 100, 10) %>% layer_mel_spectrogram(10)
+#'
+#' @family audio
 #'
 #' @export
 layer_mel_spectrogram <- function(object, num_mel_bins = 128, sample_rate = 16000,

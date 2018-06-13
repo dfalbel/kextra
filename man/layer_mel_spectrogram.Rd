@@ -63,3 +63,6 @@ input <- layer_input(shape = c(16000, 1))
 output <- layer_spectrogram(input, 100, 10) \%>\% layer_mel_spectrogram(10)
 
 }
+\seealso{
+Other audio: \code{\link{layer_spectrogram}}
+}
