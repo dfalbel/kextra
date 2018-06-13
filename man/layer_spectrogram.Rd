@@ -65,7 +65,7 @@ It only works with the TensorFlow backend.
 \examples{
 library(keras)
 library(kextra)
-input <- layer_input(shape = shape(NULL, 16000, 1))
+input <- layer_input(shape = c(16000, 1))
 output <- layer_spectrogram(input, 100, 10)
 
 }
