@@ -154,6 +154,18 @@ Spectrogram <- R6::R6Class(
 #'
 #' It only works with the TensorFlow backend.
 #'
+#' @section Input shape:
+#'
+#'   4D tensor with shape (a spectrogram): (samples, channels, frames, fft_unique_bins) if
+#'   data_format='channels_first' or 4D tensor with shape: (samples, frames, fft_unique_bins, channels)
+#'   if data_format='channels_last'.
+#'
+#' @section Output shape:
+#'
+#'   4D tensor with shape: (samples, frames, num_mel_bins, channels) if
+#'   data_format='channels_last' or 4D tensor with shape: (samples, channels, frames, num_mel_bins)
+#'   if data_format='channels_last'.
+#'
 #' @param num_mel_bins How many bands in the resulting mel spectrum.
 #' @param sample_rate Samples per second of the input signal used to create the spectrogram.
 #' We need this to figure out the actual frequencies for each spectrogram bin,

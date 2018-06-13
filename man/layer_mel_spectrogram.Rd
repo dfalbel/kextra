@@ -40,6 +40,22 @@ to compute the matrix.
 \details{
 It only works with the TensorFlow backend.
 }
+\section{Input shape}{
+
+
+  4D tensor with shape (a spectrogram): (samples, channels, frames, fft_unique_bins) if
+  data_format='channels_first' or 4D tensor with shape: (samples, frames, fft_unique_bins, channels)
+  if data_format='channels_last'.
+}
+
+\section{Output shape}{
+
+
+  4D tensor with shape: (samples, frames, num_mel_bins, channels) if
+  data_format='channels_last' or 4D tensor with shape: (samples, channels, frames, num_mel_bins)
+  if data_format='channels_last'.
+}
+
 \examples{
 library(keras)
 library(kextra)
