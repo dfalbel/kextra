@@ -56,6 +56,7 @@ layer_spectrogram <- function(object, frame_length, frame_step, fft_length = NUL
     pad_end = pad_end,
     mode = mode,
     log_compress = log_compress,
+    log_offset = log_offset,
     name = name,
     trainable = FALSE
   ))
