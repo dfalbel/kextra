@@ -7,4 +7,6 @@ as_nullable_integer <- function(x) {
 }
 
 
-tf <- reticulate::import("tensorflow")
+#' @importFrom tensorflow tf
+#' @export
+tensorflow::tf

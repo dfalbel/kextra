@@ -2,3 +2,5 @@
 
 export(layer_mel_spectrogram)
 export(layer_spectrogram)
+export(tf)
+importFrom(tensorflow,tf)
