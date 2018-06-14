@@ -77,6 +77,18 @@ tf.contrib.signal." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/examples/audio-layers.html">audio-layers</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -182,14 +194,16 @@ isn't provided.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other audio: <code><a href='http://www.rdocumentation.org/packages/kextra/topics/layer_mel_spectrogram'>layer_mel_spectrogram</a></code></p></div>
+    <div class='dont-index'><p>Other audio: <code><a href='layer_mel_spectrogram.html'>layer_mel_spectrogram</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>library</span>(<span class='no'>keras</span>)
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>library</span>(<span class='no'>keras</span>)
 <span class='fu'>library</span>(<span class='no'>kextra</span>)
 <span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/layer_input'>layer_input</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>16000</span>, <span class='fl'>1</span>))
-<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/kextra/topics/layer_spectrogram'>layer_spectrogram</a></span>(<span class='no'>input</span>, <span class='fl'>100</span>, <span class='fl'>10</span>)</div></pre>
+<span class='no'>output</span> <span class='kw'>&lt;-</span> <span class='fu'>layer_spectrogram</span>(<span class='no'>input</span>, <span class='fl'>100</span>, <span class='fl'>10</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

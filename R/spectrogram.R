@@ -40,11 +40,12 @@
 #' isn't provided.
 #'
 #' @examples
+#' \dontrun{
 #' library(keras)
 #' library(kextra)
 #' input <- layer_input(shape = c(16000, 1))
 #' output <- layer_spectrogram(input, 100, 10)
-#'
+#' }
 #' @family audio
 #'
 #' @export
@@ -138,7 +139,7 @@ Spectrogram <- R6::R6Class(
         n_frames <- (input_shape[[2]] - self$frame_length) %/% self$frame_step + 1L
       }
 
-      fft_unique_bins <- self$fft_length %/% 2 + 1
+      fft_unique_bins <- as.integer(self$fft_length %/% 2 + 1)
 
       if (keras::k_image_data_format() == "channels_first")
         list(samples, channels, n_frames, fft_unique_bins)
@@ -187,11 +188,12 @@ Spectrogram <- R6::R6Class(
 #' isn't provided.
 #'
 #' @examples
+#' \dontrun{
 #' library(keras)
 #' library(kextra)
 #' input <- layer_input(shape = c(16000, 1))
 #' output <- layer_spectrogram(input, 100, 10) %>% layer_mel_spectrogram(10)
-#'
+#' }
 #' @family audio
 #'
 #' @export

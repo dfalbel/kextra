@@ -4,3 +4,8 @@ reference:
   contents:
   - '`layer_mel_spectrogram`'
   - '`layer_spectrogram`'
+articles:
+- title: Examples
+  desc: ~
+  contents:
+  - '`examples/audio-layers`'
