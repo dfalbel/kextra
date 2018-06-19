@@ -125,54 +125,58 @@
 <a class="sourceLine" id="cb1-44" data-line-number="44"></a>
 <a class="sourceLine" id="cb1-45" data-line-number="45">  ds &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/tensor_slices_dataset">tensor_slices_dataset</a></span>(df)</a>
 <a class="sourceLine" id="cb1-46" data-line-number="46"></a>
-<a class="sourceLine" id="cb1-47" data-line-number="47">  <span class="kw">print</span>(ds)</a>
-<a class="sourceLine" id="cb1-48" data-line-number="48"></a>
-<a class="sourceLine" id="cb1-49" data-line-number="49">  <span class="cf">if</span> (shuffle)</a>
-<a class="sourceLine" id="cb1-50" data-line-number="50">    ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_shuffle">dataset_shuffle</a></span>(<span class="dt">buffer_size =</span> <span class="dv">5000</span>)</a>
-<a class="sourceLine" id="cb1-51" data-line-number="51"></a>
-<a class="sourceLine" id="cb1-52" data-line-number="52">  ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-53" data-line-number="53"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_map">dataset_map</a></span>(<span class="cf">function</span>(obs) {</a>
-<a class="sourceLine" id="cb1-54" data-line-number="54">      <span class="co"># decoding wav files</span></a>
-<a class="sourceLine" id="cb1-55" data-line-number="55">      audio_binary &lt;-<span class="st"> </span>tf<span class="op">$</span><span class="kw">read_file</span>(tf<span class="op">$</span><span class="kw">reshape</span>(obs<span class="op">$</span>fname, <span class="dt">shape =</span> <span class="kw">list</span>()))</a>
-<a class="sourceLine" id="cb1-56" data-line-number="56">      wav &lt;-<span class="st"> </span>audio_ops<span class="op">$</span><span class="kw">decode_wav</span>(audio_binary, <span class="dt">desired_channels =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-57" data-line-number="57"></a>
-<a class="sourceLine" id="cb1-58" data-line-number="58">      <span class="co"># transform the class_id into a one-hot encoded vector</span></a>
-<a class="sourceLine" id="cb1-59" data-line-number="59">      response &lt;-<span class="st"> </span>tf<span class="op">$</span><span class="kw">one_hot</span>(obs<span class="op">$</span>class_id, 30L)</a>
-<a class="sourceLine" id="cb1-60" data-line-number="60"></a>
-<a class="sourceLine" id="cb1-61" data-line-number="61">      <span class="kw">list</span>(wav<span class="op">$</span>audio, response)</a>
-<a class="sourceLine" id="cb1-62" data-line-number="62">    }) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-63" data-line-number="63"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_repeat">dataset_repeat</a></span>()</a>
-<a class="sourceLine" id="cb1-64" data-line-number="64"></a>
-<a class="sourceLine" id="cb1-65" data-line-number="65">  ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-66" data-line-number="66"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_padded_batch">dataset_padded_batch</a></span>(<span class="dv">32</span>, <span class="kw">list</span>(<span class="kw">list</span>(<span class="dv">16000</span>, <span class="dv">1</span>), <span class="kw">list</span>(<span class="ot">NULL</span>)))</a>
-<a class="sourceLine" id="cb1-67" data-line-number="67"></a>
-<a class="sourceLine" id="cb1-68" data-line-number="68">  ds</a>
-<a class="sourceLine" id="cb1-69" data-line-number="69">}</a>
-<a class="sourceLine" id="cb1-70" data-line-number="70"></a>
-<a class="sourceLine" id="cb1-71" data-line-number="71"></a>
-<a class="sourceLine" id="cb1-72" data-line-number="72">ds_train &lt;-<span class="st"> </span><span class="kw">data_generator</span>(df, <span class="dv">32</span>)</a>
-<a class="sourceLine" id="cb1-73" data-line-number="73"></a>
+<a class="sourceLine" id="cb1-47" data-line-number="47">  <span class="cf">if</span> (shuffle)</a>
+<a class="sourceLine" id="cb1-48" data-line-number="48">    ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_shuffle">dataset_shuffle</a></span>(<span class="dt">buffer_size =</span> <span class="dv">5000</span>)</a>
+<a class="sourceLine" id="cb1-49" data-line-number="49"></a>
+<a class="sourceLine" id="cb1-50" data-line-number="50">  ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-51" data-line-number="51"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_map">dataset_map</a></span>(<span class="cf">function</span>(obs) {</a>
+<a class="sourceLine" id="cb1-52" data-line-number="52">      <span class="co"># decoding wav files</span></a>
+<a class="sourceLine" id="cb1-53" data-line-number="53">      audio_binary &lt;-<span class="st"> </span>tf<span class="op">$</span><span class="kw">read_file</span>(tf<span class="op">$</span><span class="kw">reshape</span>(obs<span class="op">$</span>fname, <span class="dt">shape =</span> <span class="kw">list</span>()))</a>
+<a class="sourceLine" id="cb1-54" data-line-number="54">      wav &lt;-<span class="st"> </span>audio_ops<span class="op">$</span><span class="kw">decode_wav</span>(audio_binary, <span class="dt">desired_channels =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-55" data-line-number="55"></a>
+<a class="sourceLine" id="cb1-56" data-line-number="56">      <span class="co"># transform the class_id into a one-hot encoded vector</span></a>
+<a class="sourceLine" id="cb1-57" data-line-number="57">      response &lt;-<span class="st"> </span>tf<span class="op">$</span><span class="kw">one_hot</span>(obs<span class="op">$</span>class_id, 30L)</a>
+<a class="sourceLine" id="cb1-58" data-line-number="58"></a>
+<a class="sourceLine" id="cb1-59" data-line-number="59">      <span class="kw">list</span>(wav<span class="op">$</span>audio, response)</a>
+<a class="sourceLine" id="cb1-60" data-line-number="60">    }) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-61" data-line-number="61"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_repeat">dataset_repeat</a></span>()</a>
+<a class="sourceLine" id="cb1-62" data-line-number="62"></a>
+<a class="sourceLine" id="cb1-63" data-line-number="63">  ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-64" data-line-number="64"><span class="st">    </span><span class="kw"><a href="http://www.rdocumentation.org/packages/tfdatasets/topics/dataset_padded_batch">dataset_padded_batch</a></span>(<span class="dv">32</span>, <span class="kw">list</span>(<span class="kw">list</span>(<span class="dv">16000</span>, <span class="dv">1</span>), <span class="kw">list</span>(<span class="ot">NULL</span>)))</a>
+<a class="sourceLine" id="cb1-65" data-line-number="65"></a>
+<a class="sourceLine" id="cb1-66" data-line-number="66">  ds</a>
+<a class="sourceLine" id="cb1-67" data-line-number="67">}</a>
+<a class="sourceLine" id="cb1-68" data-line-number="68"></a>
+<a class="sourceLine" id="cb1-69" data-line-number="69">id_train &lt;-<span class="st"> </span><span class="kw">sample.int</span>(<span class="kw">nrow</span>(df), <span class="fl">0.7</span><span class="op">*</span><span class="kw">nrow</span>(df))</a>
+<a class="sourceLine" id="cb1-70" data-line-number="70">ds_train &lt;-<span class="st"> </span><span class="kw">data_generator</span>(df[id_train,], <span class="dv">32</span>)</a>
+<a class="sourceLine" id="cb1-71" data-line-number="71">ds_valid &lt;-<span class="st"> </span><span class="kw">data_generator</span>(df[<span class="op">-</span>id_train,], <span class="dv">32</span>, <span class="dt">shuffle =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb1-72" data-line-number="72"></a>
+<a class="sourceLine" id="cb1-73" data-line-number="73"><span class="co"># Model definition --------------------------------------------------------</span></a>
 <a class="sourceLine" id="cb1-74" data-line-number="74"></a>
-<a class="sourceLine" id="cb1-75" data-line-number="75"><span class="co"># Model definition --------------------------------------------------------</span></a>
-<a class="sourceLine" id="cb1-76" data-line-number="76"></a>
-<a class="sourceLine" id="cb1-77" data-line-number="77">input &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_input">layer_input</a></span>(<span class="dt">shape =</span> <span class="kw">c</span>(16000L, 1L))</a>
-<a class="sourceLine" id="cb1-78" data-line-number="78">spectrogram &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/layer_spectrogram.html">layer_spectrogram</a></span>(input, 320L, 160L)</a>
-<a class="sourceLine" id="cb1-79" data-line-number="79">output &lt;-<span class="st"> </span>spectrogram <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-80" data-line-number="80"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_conv_2d">layer_conv_2d</a></span>(<span class="dt">filters =</span> <span class="dv">32</span>, <span class="dt">kernel_size =</span>  <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-81" data-line-number="81"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_max_pooling_2d">layer_max_pooling_2d</a></span>(<span class="dt">pool_size =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-82" data-line-number="82"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_conv_2d">layer_conv_2d</a></span>(<span class="dt">filters =</span> <span class="dv">64</span>,<span class="dt">kernel_size =</span>  <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-83" data-line-number="83"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_max_pooling_2d">layer_max_pooling_2d</a></span>(<span class="dt">pool_size =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_flatten">layer_flatten</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-84" data-line-number="84"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_dense">layer_dense</a></span>(<span class="dv">128</span>, <span class="dt">activation =</span> <span class="st">"relu"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-85" data-line-number="85"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_dense">layer_dense</a></span>(<span class="dv">30</span>, <span class="dt">activation =</span> <span class="st">"softmax"</span>)</a>
+<a class="sourceLine" id="cb1-75" data-line-number="75">input &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_input">layer_input</a></span>(<span class="dt">shape =</span> <span class="kw">c</span>(16000L, 1L))</a>
+<a class="sourceLine" id="cb1-76" data-line-number="76">spectrogram &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/layer_spectrogram.html">layer_spectrogram</a></span>(input, 320L, 160L, <span class="dt">log_compress =</span> <span class="ot">TRUE</span>, <span class="dt">log_offset =</span> <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb1-77" data-line-number="77">output &lt;-<span class="st"> </span>spectrogram <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-78" data-line-number="78"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_conv_2d">layer_conv_2d</a></span>(<span class="dt">filters =</span> <span class="dv">32</span>, <span class="dt">kernel_size =</span>  <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-79" data-line-number="79"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_max_pooling_2d">layer_max_pooling_2d</a></span>(<span class="dt">pool_size =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-80" data-line-number="80"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_conv_2d">layer_conv_2d</a></span>(<span class="dt">filters =</span> <span class="dv">64</span>,<span class="dt">kernel_size =</span>  <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-81" data-line-number="81"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_max_pooling_2d">layer_max_pooling_2d</a></span>(<span class="dt">pool_size =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_flatten">layer_flatten</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-82" data-line-number="82"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_dense">layer_dense</a></span>(<span class="dv">128</span>, <span class="dt">activation =</span> <span class="st">"relu"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-83" data-line-number="83"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/layer_dense">layer_dense</a></span>(<span class="dv">30</span>, <span class="dt">activation =</span> <span class="st">"softmax"</span>)</a>
+<a class="sourceLine" id="cb1-84" data-line-number="84"></a>
+<a class="sourceLine" id="cb1-85" data-line-number="85">model &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/keras_model">keras_model</a></span>(input, output)</a>
 <a class="sourceLine" id="cb1-86" data-line-number="86"></a>
-<a class="sourceLine" id="cb1-87" data-line-number="87">model &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/keras_model">keras_model</a></span>(input, output)</a>
-<a class="sourceLine" id="cb1-88" data-line-number="88"></a>
-<a class="sourceLine" id="cb1-89" data-line-number="89">model <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-90" data-line-number="90"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/compile">compile</a></span>(</a>
-<a class="sourceLine" id="cb1-91" data-line-number="91">    <span class="dt">optimizer =</span> <span class="st">"adam"</span>, <span class="dt">loss =</span> <span class="st">"categorical_crossentropy"</span>, <span class="dt">metrics =</span> <span class="st">"accuracy"</span></a>
-<a class="sourceLine" id="cb1-92" data-line-number="92">  )</a>
-<a class="sourceLine" id="cb1-93" data-line-number="93"></a>
-<a class="sourceLine" id="cb1-94" data-line-number="94">model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/fit_generator">fit_generator</a></span>(ds_train, <span class="dt">steps_per_epoch =</span> <span class="dv">100</span>, <span class="dt">epochs =</span> <span class="dv">1</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-87" data-line-number="87">model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb1-88" data-line-number="88"><span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/compile">compile</a></span>(</a>
+<a class="sourceLine" id="cb1-89" data-line-number="89">    <span class="dt">optimizer =</span> <span class="st">"adam"</span>, <span class="dt">loss =</span> <span class="st">"categorical_crossentropy"</span>, <span class="dt">metrics =</span> <span class="st">"accuracy"</span></a>
+<a class="sourceLine" id="cb1-90" data-line-number="90">  )</a>
+<a class="sourceLine" id="cb1-91" data-line-number="91"></a>
+<a class="sourceLine" id="cb1-92" data-line-number="92">model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/keras/topics/fit_generator">fit_generator</a></span>(</a>
+<a class="sourceLine" id="cb1-93" data-line-number="93">  ds_train,</a>
+<a class="sourceLine" id="cb1-94" data-line-number="94">  <span class="dt">steps_per_epoch =</span> <span class="fl">0.7</span><span class="op">*</span><span class="kw">nrow</span>(df),</a>
+<a class="sourceLine" id="cb1-95" data-line-number="95">  <span class="dt">epochs =</span> <span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb1-96" data-line-number="96">  <span class="dt">validation_data =</span> ds_valid,</a>
+<a class="sourceLine" id="cb1-97" data-line-number="97">  <span class="dt">validation_steps =</span> <span class="fl">0.3</span><span class="op">*</span><span class="kw">nrow</span>(df)</a>
+<a class="sourceLine" id="cb1-98" data-line-number="98">  )</a></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

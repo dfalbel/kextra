@@ -4,6 +4,10 @@ reference:
   contents:
   - '`layer_mel_spectrogram`'
   - '`layer_spectrogram`'
+- title: Image
+  desc: Image pre-processing layers
+  contents:
+  - '`layer_rgb_to_grayscale`'
 articles:
 - title: Examples
   desc: ~

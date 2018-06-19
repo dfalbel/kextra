@@ -8,5 +8,4 @@ as_nullable_integer <- function(x) {
 
 
 #' @importFrom tensorflow tf
-#' @export
 tensorflow::tf
