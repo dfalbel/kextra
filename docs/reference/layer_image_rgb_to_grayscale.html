@@ -139,7 +139,9 @@ isn't provided.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>rgb_images</span> <span class='kw'>&lt;-</span> <span class='fu'>layer_input</span>(<span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>3</span>))
+<span class='fu'>library</span>(<span class='no'>keras</span>)
+<span class='fu'>library</span>(<span class='no'>kextra</span>)
+<span class='no'>rgb_images</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/keras/topics/layer_input'>layer_input</a></span>(<span class='fu'>c</span>(<span class='fl'>200</span>, <span class='fl'>200</span>, <span class='fl'>3</span>))
 <span class='no'>gs_images</span> <span class='kw'>&lt;-</span> <span class='fu'>layer_rgb_to_grayscale</span>(<span class='no'>rgb_images</span>)
 <span class='co'># }</span><div class='input'>
 </div></pre>

@@ -18,6 +18,8 @@ Converts an image in RGB to the Grayscale.
 }
 \examples{
 \dontrun{
+library(keras)
+library(kextra)
 rgb_images <- layer_input(c(200, 200, 3))
 gs_images <- layer_rgb_to_grayscale(rgb_images)
 }

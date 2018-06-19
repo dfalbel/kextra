@@ -9,6 +9,8 @@
 #'
 #' @examples
 #' \dontrun{
+#' library(keras)
+#' library(kextra)
 #' rgb_images <- layer_input(c(200, 200, 3))
 #' gs_images <- layer_rgb_to_grayscale(rgb_images)
 #' }
@@ -51,7 +53,8 @@ RGBToGrayscale <- R6::R6Class(
 #'
 #' @param object Model or layer object
 #' @param size integer of 2 elements: new_height, new_width. The new size for the images
-#' @param method ResizeMethod. Defaults to "bilinear".
+#' @param method Could be 'nearest_neighbor', 'bicubic',
+#' 'area' or 'bilinear'. Defaults to "bilinear".
 #' @param align_corners If TRUE, the centers of the 4 corner pixels of the
 #' input and output tensors are aligned, preserving the values at the corner
 #' pixels. Defaults to FALSE.
@@ -64,6 +67,8 @@ RGBToGrayscale <- R6::R6Class(
 #' @examples
 #'
 #' \dontrun{
+#' library(keras)
+#' library(kextra)
 #' images <- layer_input(c(200, 200, 3))
 #' images_resized <- layer_image_resize(images, c(100, 100))
 #' }
