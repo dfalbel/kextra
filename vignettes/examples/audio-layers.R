@@ -44,8 +44,6 @@ data_generator <- function(df, batch_size, shuffle = TRUE) {
 
   ds <- tensor_slices_dataset(df)
 
-  print(ds)
-
   if (shuffle)
     ds <- ds %>% dataset_shuffle(buffer_size = 5000)
 
@@ -69,14 +67,14 @@ data_generator <- function(df, batch_size, shuffle = TRUE) {
   ds
 }
 
-
-ds_train <- data_generator(df, 32)
-
+id_train <- sample.int(nrow(df), 0.7*nrow(df))
+ds_train <- data_generator(df[id_train,], 32)
+ds_valid <- data_generator(df[-id_train,], 32, shuffle = FALSE)
 
 # Model definition --------------------------------------------------------
 
 input <- layer_input(shape = c(16000L, 1L))
-spectrogram <- layer_spectrogram(input, 320L, 160L)
+spectrogram <- layer_spectrogram(input, 320L, 160L, log_compress = TRUE, log_offset = 0.01)
 output <- spectrogram %>%
   layer_conv_2d(filters = 32, kernel_size =  c(3,3)) %>%
   layer_max_pooling_2d(pool_size = c(2,2)) %>%
@@ -92,7 +90,13 @@ model %>%
     optimizer = "adam", loss = "categorical_crossentropy", metrics = "accuracy"
   )
 
-model %>% fit_generator(ds_train, steps_per_epoch = 100, epochs = 1)
+model %>% fit_generator(
+  ds_train,
+  steps_per_epoch = 0.7*nrow(df),
+  epochs = 10,
+  validation_data = ds_valid,
+  validation_steps = 0.3*nrow(df)
+  )
 
 
 
