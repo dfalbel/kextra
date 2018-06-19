@@ -2,7 +2,7 @@
 % Please edit documentation in R/image.R
 \name{layer_image_rgb_to_grayscale}
 \alias{layer_image_rgb_to_grayscale}
-\title{RGB to Grayscale}
+\title{Layer RGB to Grayscale}
 \usage{
 layer_image_rgb_to_grayscale(object, name = NULL)
 }

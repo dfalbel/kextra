@@ -1,4 +1,4 @@
-#' RGB to Grayscale
+#' Layer RGB to Grayscale
 #'
 #' Converts an image in RGB to the Grayscale.
 #'
@@ -45,7 +45,9 @@ RGBToGrayscale <- R6::R6Class(
   )
 )
 
-#' Resize Images
+#' Layer Resize Images
+#'
+#' Resize images.
 #'
 #' @param object Model or layer object
 #' @param size integer of 2 elements: new_height, new_width. The new size for the images
