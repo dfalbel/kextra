@@ -7,7 +7,8 @@ reference:
 - title: Image
   desc: Image pre-processing layers
   contents:
-  - '`layer_rgb_to_grayscale`'
+  - '`layer_image_rgb_to_grayscale`'
+  - '`layer_image_resize`'
 articles:
 - title: Examples
   desc: ~
