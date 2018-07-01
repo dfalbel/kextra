@@ -41,7 +41,7 @@ RGBToGrayscale <- R6::R6Class(
     },
 
     compute_output_shape = function (input_shape) {
-      c(input_shape[[1]], input_shape[[2]], 1L)
+      list(input_shape[[1]], input_shape[[2]], input_shape[[3]], 1L)
     }
 
   )
@@ -115,11 +115,14 @@ ResizeImages <- R6::R6Class(
     },
 
     call = function (x, mask = NULL) {
-      tf$image$resize_images(x, size = self$size, method = self$method)
+      tf$image$resize_images(
+        x, size = self$size, method = self$method,
+        align_corners = self$align_corners
+        )
     },
 
     compute_output_shape = function (input_shape) {
-      c(self$size, input_shape[[3]])
+      list(input_shape[[1]], self$size[1], self$size[2], input_shape[[4]])
     }
   )
 )
